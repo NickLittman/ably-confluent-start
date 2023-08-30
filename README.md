@@ -68,6 +68,7 @@ Follow these steps to get the application up and running.
 
 ```bash
 npm run dev
+```
 
 ## Architecture
 
