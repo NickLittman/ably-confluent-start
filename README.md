@@ -19,7 +19,7 @@ This repository is a Next.js application that showcases the integration of Ably 
   - [Step 3: Set Environment Variables](#step-3-set-environment-variables)
   - [Step 4: Run Terraform Script 1](#step-4-run-terraform-script-1)
   - [Step 5: Upload Connector in UI](#step-5-upload-connector-in-ui)
-  - [Step 6: Run Terraform Script 2 or Manually Deploy in UI](#step-6-run-terraform-script-2-or-manually-deploy-in-ui)
+  - [Step 6: Manually Deploy Connector in UI](#step-6-run-terraform-script-2-or-manually-deploy-in-ui)
   - [Step 7: Run Next.js Development Server](#step-7-run-nextjs-development-server)
 - [Architecture](#architecture)
 - [Built With](#built-with)
@@ -60,7 +60,7 @@ Follow these steps to get the application up and running.
 
 - Go to the Confluent UI and upload the Kafka Connector.
 
-### Step 6: Manually Deploy in UI
+### Step 6: Manually Deploy Connector in UI
 
 - Manually deploy resources in the Confluent UI.
 
