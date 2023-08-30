@@ -3,19 +3,56 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Ably from "ably";
 import { useChannel } from "@ably-labs/react-hooks";
+import DisplayJson from "./components/DisplayJson";
+
+import chroma from 'chroma-js'; 
+
+
+function generateColor(str: string) {
+  let total = 0;
+  for(let i = 0; i < str.length; i++) {
+    total += str.charCodeAt(i);
+  }
+  // Generate a pseudo-random number between 0 and 1 based on the string.
+  const randomness = total % 100 / 100;
+
+  const baseColor = chroma('blue');
+  const themedColor = baseColor.luminance(randomness * 0.6 + 0.2).saturate(1 - randomness);
+  
+  return themedColor.css();
+}
+
+
+function decodeArrayBuffer(buffer: ArrayBuffer) {
+  var decoder = new TextDecoder('utf-8');
+  var data = new Uint8Array(buffer);
+  var decodedString = decoder.decode(data);
+  return decodedString;
+}
 
 export default function Home() {
   const [messages, setMessages] = useState<Ably.Types.Message[]>([]);
   const [modalMessage, setModalMessage] = useState<Ably.Types.Message | null>();
+  const [idColorPairs, setIdColorPairs] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
-    if (messages.length > 100) {
+    if (messages.length > 9) {
+      let messageIdToRemove = messages[0].id;
       setMessages(messages.slice(1));
+      setIdColorPairs((prevIdColorPairs) => {
+        delete prevIdColorPairs[messageIdToRemove];
+        return prevIdColorPairs;
+      }
+      );
     }
   }, [messages]);
 
   const handleClick = (message: Ably.Types.Message) => {
     setModalMessage(message);
+  };
+
+  const handleClearMessages = () => {
+    setMessages([]);
   };
 
   const closeModal = () => {
@@ -25,30 +62,44 @@ export default function Home() {
   const [channel] = useChannel(
     "ably_test_2",
     async (newMessage: Ably.Types.Message) => {
+      var decodedData = decodeArrayBuffer(newMessage.data);
+      newMessage.data = decodedData;
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setIdColorPairs((prevIdColorPairs) => {
+        prevIdColorPairs[newMessage.id] = generateColor(decodedData);
+        return prevIdColorPairs;
+      }
+      );
     }
   );
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+      <button onClick={handleClearMessages} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Reset</button>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="https://ably.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{" "}
             <Image
-              src="/ably.png"
+              src="/ably-logo.png"
               alt="Ably Logo"
               className="dark:invert"
               width={50}
               height={24}
               priority
             />
+            </a>
+            <a 
+            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            href="https://www.confluent.io/"
+            target="_blank"
+            rel="noopener noreferrer">
             <Image
-              src="/confluent.png"
+              src="/confluent-logo.png"
               alt="Confluent Logo"
               className="dark:invert"
               width={50}
@@ -65,13 +116,17 @@ export default function Home() {
             onClick={() => handleClick(message)}
             key={index}
             className="p-4 border border-gray-700 rounded shadow-lg transform transition-transform duration-500 hover:scale-105"
+            style={{backgroundColor: idColorPairs[message.id]}}
           >
-            <h1 className="text-3xl font-extrabold">{index}</h1>
-            <h2 className="text-xl font-bold">{message.id}</h2>
-            <p className="mt-2 text-gray-700 dark:text-white">{message.data}</p>
+            <h1 className="text-3xl font-extrabold">{message.id}</h1>
+            {/* <h2 className="text-xl font-bold">Ably Message ID: {message.id}</h2> */}
+            {/* <p className="mt-2 text-gray-700 dark:text-white">{JSON.stringify(message.data)}</p> */}
+            <DisplayJson data={JSON.parse(message.data)} />
+
           </div>
         ))}
       </div>
+
       <div>
         {modalMessage && (
           <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -99,7 +154,8 @@ export default function Home() {
                     {modalMessage.id}
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">{modalMessage.data}</p>
+                    {/* <p className="text-sm text-gray-500">{modalMessage.data}</p> */}
+                    <DisplayJson data={modalMessage} />
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6">

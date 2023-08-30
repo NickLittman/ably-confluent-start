@@ -16,6 +16,7 @@
     "ably": "^1.2.42",
     "autoprefixer": "10.4.14",
     "bufferutil": "^4.0.7",
+    "chroma-js": "^2.4.2",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "jsonwebtoken": "^9.0.1",
