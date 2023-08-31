@@ -42,7 +42,9 @@ Follow these steps to get the application up and running.
 
 ### Step 1: Create Ably Account
 
-- Navigate to [Ably](https://ably.com/sign-up) and sign up for an account.
+1. Navigate to [Ably](https://ably.com/sign-up) and sign up for an account.
+2. Create a new app (name it anything you'd like)
+3. In the getting started tab, copy your API key for later when we add it to our .env
 
 ### Step 2: Create Confluent Account
 
