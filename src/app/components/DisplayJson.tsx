@@ -5,8 +5,7 @@ const DisplayJson = ({ data }: { data: Ably.Types.Message }) => {
   return (
     <div className="space-y-2">
       {Object.entries(data).map(([key, value]) => {
-        // If the value is an object, render it recursively
-        if (typeof value === 'object' && value !== null) {
+        if (typeof value === 'object' && value !== null && key !== 'data') {
           return (
             <div key={key}>
               <strong>{key}:</strong>
@@ -17,7 +16,7 @@ const DisplayJson = ({ data }: { data: Ably.Types.Message }) => {
           );
         }
 
-        // If the value is not an object, render it as a simple key-value pair
+        if (key === 'data') return;
         return (
           <div key={key}>
             <strong>{key}:</strong> {String(value)}
