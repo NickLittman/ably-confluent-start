@@ -42,9 +42,7 @@ Follow these steps to get the application up and running.
 
 ### Step 1: Create Ably Account
 
-1. Navigate to [Ably](https://ably.com/sign-up) and sign up for an account.
-2. Create a new app (name it anything you'd like)
-3. In the getting started tab, copy your API key for later when we add it to our .env
+- Navigate to [Ably](https://ably.com/sign-up) and sign up for an account.
 
 ### Step 2: Create Confluent Account
 
@@ -52,11 +50,29 @@ Follow these steps to get the application up and running.
 
 ### Step 3: Set Environment Variables
 
-- Create a `.env` file and populate it with your Ably and Confluent API keys.
+- Make a copy of the `.env.example` file and rename it to `.env.local` then populate it with your Ably and Confluent API keys.
+
+#### How to find Ably Key
+1. Navigate to the [Ably Dashboard](https://ably.com/).
+2. Click on the key you want to use.
+3. Copy the API key.
+4. Paste the API key value in the `.env.local` file for the key `ABLY_API_KEY`
+
+#### How to find Confluent Key
+1. Navigate to the [Confluent Dashboard](https://confluent.cloud/).
+2. Click on the key you want to use.
+3. Copy the API key.
+4. Paste the API Key in the variables.tf file for the key `CONFLUENT_API_KEY`
 
 ### Step 4: Run Terraform Script 1
 
 - Initialize and apply the first Terraform script.
+    
+    ```bash
+    terraform init
+    terraform apply
+    ```
+- This script will create the following resources in Confluent Cloud:
 
 ### Step 5: Upload Connector in UI
 
