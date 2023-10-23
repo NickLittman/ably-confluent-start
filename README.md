@@ -111,7 +111,8 @@ Follow these steps to get the application up and running.
   "value.converter.schemas.enable": "false"
   }
   ```
-4. Continue with the remaining steps of the connector configurations with the default selections and launch the connector
+4. When asked for an endpoint, enter `rest.ably.io:443:TCP`
+5. Continue with the remaining steps of the connector configurations with the default selections and launch the connector
    
 ### Step 7: Run Next.js Development Server
 
