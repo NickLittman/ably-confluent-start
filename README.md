@@ -96,6 +96,7 @@ Follow these steps to get the application up and running.
 1. Navigate back to the Connectors tab and select the plugin name you uploaded in the previous step to luanch the connector configuration and deployment
 2. Select `Generate API key & download` to create a Global API key for the connector
 3. Select the option to configure your connector via JSON and insert the following, replacing the placeholder with your Ably API key:
+  ```json
   {
   "connector.class": "com.ably.kafka.connect.ChannelSinkConnector",
   "tasks.max": "1",
@@ -109,6 +110,7 @@ Follow these steps to get the application up and running.
   "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
   "value.converter.schemas.enable": "false"
   }
+  ```
 4. Continue with the remaining steps of the connector configurations with the default selections and launch the connector
    
 ### Step 7: Run Next.js Development Server
