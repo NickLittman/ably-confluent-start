@@ -120,6 +120,20 @@ Follow these steps to get the application up and running.
 npm run dev
 ```
 
+## Cleaning up
+
+- To delete the custom connector:
+
+Go back to the Connectors tab on your Confluent Cloud cluster, select the custom connector, navigate to it's Settings tab and select `Delete Connector`. Note: The Datagen Connector will be deleted with the rest of the Confluent Cloud environment in the next step.
+
+- To tear down the Confluent Cloud environment:
+
+Run the following command on your terminal and confirm by typing "yes" when prompted. You will once again need to provide your Cloud API key and secret:
+
+```
+terraform destroy
+```
+
 ## Architecture
 
 Describe the architecture of the application.
