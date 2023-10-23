@@ -58,30 +58,59 @@ Follow these steps to get the application up and running.
 3. Copy the API key.
 4. Paste the API key value in the `.env.local` file for the key `ABLY_API_KEY`
 
-#### How to find Confluent Key
-1. Navigate to the [Confluent Dashboard](https://confluent.cloud/).
-2. Click on the key you want to use.
-3. Copy the API key.
-4. Paste the API Key in the variables.tf file for the key `CONFLUENT_API_KEY`
+#### How to create a Confluent Cloud API Key
+1. Create you Cloud API Key on Confluent Cloud by following the steps [here]([https://www.confluent.io/get-started/](https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html#create-a-cloud-api-key)).
+2. Download and store your API keys safely as we will be using this while creating and destroying resources with Terraform in the upcoming steps.
 
-### Step 4: Run Terraform Script 1
+### Step 4: Run Terraform Script
 
-- Initialize and apply the first Terraform script.
+- Initialize and apply the Terraform script.
     
     ```bash
     terraform init
     terraform apply
-    ```
+    ```  
+- Enter you Cloud API Key and Secret as prompted
+- Type `yes` to confirm that you would like to run the Terraform script
+    
 - This script will create the following resources in Confluent Cloud:
+  - A Confluent Cloud Environment
+  - A Basic Cluster
+  - A Schema Registry Instance
+  - A Service Account
+  - A topic called Orders
+  - A Datagen Source Connector
 
-### Step 5: Upload Connector in UI
+### Step 5: Upload Connector in Confluent Cloud UI
 
-- Go to the Confluent UI and upload the Kafka Connector.
+1. Obtain the .zip of the connector as per Ably's [manual installation guide](https://github.com/ably/kafka-connect-ably#manual-installation).
+2. Log in to your Confluent Cloud account and inside the cluster on your Confluent Cloud account go to the Connectors tab and click on `Add Connector`
+3. Instead of selecting Ably Kafka Connector from the Hub, instead click `Add Plugin`
+4. Give the plugin a name, and set the class to com.ably.kafka.connect.ChannelSinkConnector
+5. Select `Sink Connector`
+6. Upload the .zip file you obtained in step 1 by clicking on `Select connector archive`
+7. Click on `Apply` to upload the connector plugin
 
-### Step 6: Manually Deploy Connector in UI
+### Step 6: Deploy Connector in Confluent Cloud UI
 
-- Manually deploy resources in the Confluent UI.
-
+1. Navigate back to the Connectors tab and select the plugin name you uploaded in the previous step to luanch the connector configuration and deployment
+2. Select `Generate API key & download` to create a Global API key for the connector
+3. Select the option to configure your connector via JSON and insert the following, replacing the placeholder with your Ably API key:
+  {
+  "connector.class": "com.ably.kafka.connect.ChannelSinkConnector",
+  "tasks.max": "1",
+  "group.id": "ably-connect-cluster",
+  "topics": "orders",
+  "client.id": "Ably-Kafka-Connector",
+  "channel": "#{topic}",
+  "message.name": "#{topic}_message",
+  "client.key": "<YOUR_ABLY_API_KEY>",
+  "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+  "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+  "value.converter.schemas.enable": "false"
+  }
+4. Continue with the remaining steps of the connector configurations with the default selections and launch the connector
+   
 ### Step 7: Run Next.js Development Server
 
 ```bash
