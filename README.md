@@ -24,9 +24,6 @@ This repository is a Next.js application that showcases the integration of Ably 
 - [Architecture](#architecture)
 - [Built With](#built-with)
 - [Learn More About Next.js](#learn-more-about-nextjs)
-- [Deploy on Vercel](#deploy-on-vercel)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Prerequisites
 
@@ -136,35 +133,16 @@ terraform destroy
 
 ## Architecture
 
-Describe the architecture of the application.
+
 
 ## Built With
-
-- Next.js
 - Ably React Hooks
 - Confluent Custom Connectors
 - Terraform
+- NextJS
 
 ## Learn More About Next.js
 
 For more information about Next.js, check:
 
 - [Next.js Documentation](https://nextjs.org/docs)
-
-## Deploy on Vercel
-
-For deploying on Vercel, see:
-
-- [Vercel Deployment Guide](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-
-## Contributing
-
-For guidelines on how to contribute, see:
-
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-
-## License
-
-This project is licensed under the MIT License - see:
-
-- [LICENSE.md](LICENSE.md)
