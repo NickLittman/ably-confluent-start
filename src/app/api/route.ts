@@ -1,4 +1,3 @@
-import JWT from "jsonwebtoken";
 import { URL } from "url";
 import { NextResponse } from "next/server";
 import Ably from "ably/promises";

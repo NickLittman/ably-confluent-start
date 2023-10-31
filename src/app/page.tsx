@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Ably from "ably";
-import { useChannel } from "@ably-labs/react-hooks";
+import { useChannel } from "ably/react"
 import DisplayJson from "./components/DisplayJson";
 
 import chroma from 'chroma-js'; 
@@ -13,7 +13,6 @@ function generateColor(str: string) {
   for(let i = 0; i < str.length; i++) {
     total += str.charCodeAt(i);
   }
-  // Generate a pseudo-random number between 0 and 1 based on the string.
   const randomness = total % 100 / 100;
 
   const baseColor = chroma('blue');
@@ -59,8 +58,8 @@ export default function Home() {
     setModalMessage(null);
   };
 
-  const [channel] = useChannel(
-    "ably_test_2",
+useChannel(
+    "orders",
     async (newMessage: Ably.Types.Message) => {
       var decodedData = decodeArrayBuffer(newMessage.data);
       newMessage.data = decodedData;

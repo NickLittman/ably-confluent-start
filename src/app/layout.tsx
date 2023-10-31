@@ -1,9 +1,9 @@
 'use client';
 import './globals.css'
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { configureAbly } from "@ably-labs/react-hooks";
-import { useEffect } from 'react'
+import {Realtime} from 'ably'
+import { AblyProvider } from 'ably/react'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,10 +14,8 @@ const clientId =
   Math.random().toString(36).substring(2, 15) +
   Math.random().toString(36).substring(2, 15)
 
-configureAbly({
-  authUrl: `${prefix}/api?clientId=${clientId}`,
-  clientId: clientId,
-})
+
+const client = new Realtime.Promise({authUrl: `${prefix}/api?clientId=${clientId}`})
 
 export default function RootLayout({
   children,
@@ -26,7 +24,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AblyProvider client={client}>
+        {children}
+        </AblyProvider>
+      </body>
     </html>
   )
 }
