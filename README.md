@@ -47,17 +47,13 @@ Follow these steps to get the application up and running.
 
 ### Step 3: Set Environment Variables
 
-- Make a copy of the `.env.example` file and rename it to `.env.local` then populate it with your Ably and Confluent API keys.
+- Make a copy of the `.env.example` file and rename it to `.env.local` then populate it with your Ably key.
 
 #### How to find Ably Key
 1. Navigate to the [Ably Dashboard](https://ably.com/).
 2. Click on the key you want to use.
 3. Copy the API key.
 4. Paste the API key value in the `.env.local` file for the key `ABLY_API_KEY`
-
-#### How to create a Confluent Cloud API Key
-1. Create you Cloud API Key on Confluent Cloud by following the steps [here]([https://www.confluent.io/get-started/](https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html#create-a-cloud-api-key)).
-2. Download and store your API keys safely as we will be using this while creating and destroying resources with Terraform in the upcoming steps.
 
 ### Step 4: Run Terraform Script
 
