@@ -11,19 +11,23 @@ This repository is a Next.js application that showcases the integration of Ably 
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Step 1: Create Ably Account](#step-1-create-ably-account)
-  - [Step 2: Create Confluent Account](#step-2-create-confluent-account)
-  - [Step 3: Set Environment Variables](#step-3-set-environment-variables)
-  - [Step 4: Run Terraform Script 1](#step-4-run-terraform-script-1)
-  - [Step 5: Upload Connector in UI](#step-5-upload-connector-in-ui)
-  - [Step 6: Manually Deploy Connector in UI](#step-6-run-terraform-script-2-or-manually-deploy-in-ui)
-  - [Step 7: Run Next.js Development Server](#step-7-run-nextjs-development-server)
-- [Architecture](#architecture)
-- [Built With](#built-with)
-- [Learn More About Next.js](#learn-more-about-nextjs)
+- [Ably-Confluent Kafka Connector with Next.js](#ably-confluent-kafka-connector-with-nextjs)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+    - [Step 1: Create Ably Account](#step-1-create-ably-account)
+    - [Step 2: Create Confluent Account](#step-2-create-confluent-account)
+    - [Step 3: Set Environment Variables](#step-3-set-environment-variables)
+      - [How to find Ably Key](#how-to-find-ably-key)
+    - [Step 4: Run Terraform Script](#step-4-run-terraform-script)
+    - [Step 5: Upload Connector in Confluent Cloud UI](#step-5-upload-connector-in-confluent-cloud-ui)
+    - [Step 6: Deploy Connector in Confluent Cloud UI](#step-6-deploy-connector-in-confluent-cloud-ui)
+    - [Step 7: Install NPM packages and run Next.js Development Server](#step-7-install-npm-packages-and-run-nextjs-development-server)
+  - [Cleaning up](#cleaning-up)
+  - [Architecture](#architecture)
+  - [Built With](#built-with)
+  - [Learn More About Next.js](#learn-more-about-nextjs)
 
 ## Prerequisites
 
@@ -107,9 +111,10 @@ Follow these steps to get the application up and running.
 4. When asked for an endpoint, enter `rest.ably.io:443:TCP`
 5. Continue with the remaining steps of the connector configurations with the default selections and launch the connector
    
-### Step 7: Run Next.js Development Server
+### Step 7: Install NPM packages and run Next.js Development Server
 
 ```bash
+npm install
 npm run dev
 ```
 

@@ -59,7 +59,7 @@ export default function Home() {
   };
 
 useChannel(
-    "orders",
+    "newconnectornewchannel",
     async (newMessage: Ably.Types.Message) => {
       var decodedData = decodeArrayBuffer(newMessage.data);
       newMessage.data = decodedData;
