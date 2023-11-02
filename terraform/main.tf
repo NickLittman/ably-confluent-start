@@ -59,7 +59,6 @@ resource "confluent_role_binding" "app-manager-kafka-cluster-admin" {
 resource "confluent_api_key" "app-manager-kafka-api-key" {
   display_name = "app-manager-kafka-api-key"
   description  = "Kafka API Key that is owned by 'app-manager' service account"
-  disable_wait_for_ready = true
   owner {
     id          = confluent_service_account.app-manager.id
     api_version = confluent_service_account.app-manager.api_version
