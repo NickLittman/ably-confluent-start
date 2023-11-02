@@ -1,7 +1,6 @@
 'use client';
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { configureAbly } from "@ably-labs/react-hooks";
 import {Realtime} from 'ably'
 import { AblyProvider } from 'ably/react'
 
@@ -26,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AblyProvider client={client}>
-        {children}
+          {children}
         </AblyProvider>
       </body>
     </html>
